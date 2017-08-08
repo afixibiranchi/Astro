@@ -12,6 +12,7 @@ export class HomePage {
   getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
 
   loader: any;
+  channelsList = [];
 
   constructor(public navCtrl: NavController, private http: Http,
     public loadingCtrl: LoadingController, public alerCtrl: AlertController,
@@ -21,6 +22,34 @@ export class HomePage {
 
 
 
+  ionViewDidLoad() {
+
+    var self = this;
+    this.makeChannelListRequest(function (res, data) {
+
+      console.log("Channel List res : ", res);
+      console.log("Channel List Response : ", JSON.stringify(data));
+
+      if (res == "success") {
+
+        if (data.responseCode == 200) {
+
+          self.channelsList = data.channels;
+          self.channelsList.sort((a, b) => {
+            if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+            if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+            return 0;
+          });
+
+        } else {
+          self.showAlert("Error", data.responseMessage);
+        }
+
+      } else {
+        self.showAlert("Error", data);
+      }
+    });
+  }
 
 
 
@@ -37,12 +66,11 @@ export class HomePage {
       .map(res => res.json())
       .subscribe((data) => {
         self.loader.dismiss();
-        console.log("Channel List Response : ", JSON.stringify(data));
-
+        callback("success", data);
       },
       (err) => {
         self.loader.dismiss();
-        console.log("Login Error : ", err);
+        callback("error", err);
       });
   }
 

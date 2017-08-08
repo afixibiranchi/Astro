@@ -14,3 +14,24 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+// ion-menu ion-list .item-ios[detail-push] .item-inner,
+// ion-menu ion-list button.item-ios:not([detail-none]) .item-inner,
+// ion-menu ion-list a.item-ios:not([detail-none]) .item-inner {
+//   background-image: none;
+// }
+
+// ion-menu .list-ios ion-list-header,
+// ion-menu .list-ios[no-lines] ion-list-header {
+//   border-top: 0.55px solid #e5e5e5 !important;
+// }
+
+// ion-menu .list-ios[no-lines] {
+//   margin: -1px 0 20px 0;
+// }
+
+// ion-menu .list-ios:not([inset])+.list-ios:not([inset]) ion-list-header {
+//   padding-top: 8px;
+// }
+
