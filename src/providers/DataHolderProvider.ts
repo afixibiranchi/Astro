@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
@@ -9,7 +10,7 @@ export class DataHolderProvider {
   //http://whatson.astro.com.my/tv-guide
   getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
 
-  constructor(public http: Http) {
+  constructor(public http: Http, public storage: Storage) {
     console.log('Hello DataHolderProvider Provider');
   }
 
@@ -34,6 +35,52 @@ export class DataHolderProvider {
   //==================== ChannelsList WebService Request End ===================================
 
 
+
+
+
+  //====================== Save to LocalStorage Start =================================
+
+
+  saveToLocalStorage(key, data, callback) {
+
+    this.storage.set(key, data).then((result) => {
+      //console.log("+++++ Data Saved in Local Storage : " + JSON.stringify(data));
+      callback("success", result);
+    }).catch((error) => {
+      console.log("Error while saving data in Local Storage : ", error);
+      callback("error", error);
+    });
+
+  }
+
+
+
+  retrieveFromLocalStorage(key, callback) {
+
+    this.storage.get(key).then((result) => {
+      callback("success", result);
+    }).catch((error) => {
+      console.log("Error while retrieving data from Local Storage : ", error);
+      callback("error", error);
+    });
+
+  }
+
+
+
+  removeFromLocalStorage(key, callback) {
+
+    this.storage.remove(key).then((result) => {
+      callback("success", result);
+    }).catch((error) => {
+      console.log("Error while removing data from Local Storage : ", error);
+      callback("error", error);
+    });
+
+  }
+
+
+  //====================== Save to LocalStorage End  (Browser) =================================
 
 
 

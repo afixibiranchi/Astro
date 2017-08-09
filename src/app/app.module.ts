@@ -9,7 +9,7 @@ import { ListPage } from '../pages/list/list';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
+import { IonicStorageModule } from '@ionic/storage';
 import { HttpModule } from '@angular/http';
 import { DataHolderProvider } from '../providers/DataHolderProvider';
 import { FavouritesPage } from './../pages/favourites/favourites';
@@ -24,6 +24,10 @@ import { FavouritesPage } from './../pages/favourites/favourites';
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot({
+      name: '__AstroDB',
+      driverOrder: ['indexeddb', 'sqlite', 'websql']
+    }),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
