@@ -61,7 +61,7 @@ export class HomePage {
 
 
 
-  segementChangeAction() {
+  segmentChangeAction() {
 
     if (this.sortChannel == "channelName") {
 

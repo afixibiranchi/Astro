@@ -12,11 +12,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HttpModule } from '@angular/http';
 import { DataHolderProvider } from '../providers/DataHolderProvider';
-
+import { FavouritesPage } from './../pages/favourites/favourites';
 
 @NgModule({
   declarations: [
     MyApp,
+    FavouritesPage,
     HomePage,
     ListPage
   ],
@@ -28,6 +29,7 @@ import { DataHolderProvider } from '../providers/DataHolderProvider';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    FavouritesPage,
     HomePage,
     ListPage
   ],
