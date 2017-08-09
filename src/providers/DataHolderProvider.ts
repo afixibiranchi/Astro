@@ -21,8 +21,6 @@ export class DataHolderProvider {
 
   makeChannelListRequest(callback) {
 
-    var self = this;
-
     this.http.get(this.getChannelListURL)
       .map(res => res.json())
       .subscribe((data) => {
