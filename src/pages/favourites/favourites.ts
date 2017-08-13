@@ -61,7 +61,30 @@ export class FavouritesPage {
 
   removeChannelFromFavourites(channelItem) {
 
+    console.log("Channel item to be deleted : ", JSON.stringify(channelItem));
+
+    var indexOfItem = -1;
+    for (var i = 0; i < this.favouritesChannelsList.length; i++) {
+
+      var item = this.favouritesChannelsList[i];
+      if (channelItem.channelId == item["channelId"]) {
+        indexOfItem = i;
+      }
+    }
+
+    if (indexOfItem != -1) {
+      this.favouritesChannelsList.splice(indexOfItem, 1);
+
+      this.dataHolder.saveToLocalStorage(this.favouritesLocalStorageKey, this.favouritesChannelsList, function (result, data) {
+        //console.log("Favourite Channel saved to LocalStorage result :", result);
+      });
+
+    }
+
+    console.log("Index of item to be deleted : ", indexOfItem);
+
   }
+
   //==================== Remove Channel from Favourites End ===================================
 
 
