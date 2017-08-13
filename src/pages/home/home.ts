@@ -128,6 +128,8 @@ export class HomePage {
     this.dataHolder.saveToLocalStorage(this.favouritesLocalStorageKey, this.favouritesChannelsList, function (result, data) {
       console.log("Favourite Channel saved to LocalStorage result :", result);
     });
+
+    this.showAlert("Success", "Channel added to favourite list");
   }
 
   //==================== Add to Favourites End ===================================

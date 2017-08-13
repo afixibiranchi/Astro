@@ -1,7 +1,7 @@
 import { HomePage } from './../home/home';
 import { DataHolderProvider } from './../../providers/DataHolderProvider';
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'page-favourites',
@@ -9,11 +9,13 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class FavouritesPage {
 
+  loader: any;
   favouritesLocalStorageKey = "MyFavouritesChannels";
   favouritesChannelsList = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    public dataHolder: DataHolderProvider) {
+    public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
+    public alerCtrl: AlertController) {
   }
 
 
@@ -42,5 +44,38 @@ export class FavouritesPage {
   showChannelsListPage() {
     this.navCtrl.push(HomePage);
   }
+
+
+
+
+  //==================== Loader Start ===================================
+
+
+  presentLoading() {
+    this.loader = this.loadingCtrl.create({
+      content: "Loading...",
+    });
+    this.loader.present();
+  }
+
+  //==================== Loader End ===================================
+
+
+
+
+
+  //======================= Show Alert Start ================================
+
+  showAlert(alertTitle = 'Error!', alertMessage = 'Missing Data') {
+    let alert = this.alerCtrl.create({
+      title: alertTitle,
+      message: alertMessage,
+      buttons: ['OK']
+    });
+    alert.present()
+  }
+
+  //======================= Show Alert End ================================
+
 
 }

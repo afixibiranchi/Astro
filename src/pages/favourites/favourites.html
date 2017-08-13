@@ -17,8 +17,14 @@
 
 
 <ion-content>
+
   <div *ngIf="favouritesChannelsList.length">
-    Display the list of favourites channels.
+    <ion-list>
+      <ion-item *ngFor="let channelItem of favouritesChannelsList">
+        <h3>{{channelItem.channelTitle}}</h3>
+        <p item-right>CH{{channelItem.channelId}}</p>
+      </ion-item>
+    </ion-list>
   </div>
 
   <div *ngIf="favouritesChannelsList.length == 0">
@@ -26,4 +32,5 @@
       No favourites channels added yet.
     </div>
   </div>
+
 </ion-content>
