@@ -9,6 +9,7 @@ export class DataHolderProvider {
 
   //http://whatson.astro.com.my/tv-guide
   getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
+  getChannelsURL = "http://ams-api.astro.com.my/ams/v3/getChannels";
 
   channelsList = [];
 
@@ -79,7 +80,43 @@ export class DataHolderProvider {
   makeChannelListRequest(callback) {
 
     //console.log("making makeChannelListRequest to server....");
-    this.http.get(this.getChannelListURL)
+    var url = this.getChannelListURL;
+    this.makeHTTPGetRequest(url, function (result, data) {
+      callback(result, data);
+    });
+
+  }
+
+  //==================== ChannelsList WebService Request End ===================================
+
+
+
+
+
+
+  //==================== GetChannels WebService Request Start ===================================
+
+  getChannels(callback) {
+
+    var url = this.getChannelsURL;
+    this.makeHTTPGetRequest(url, function (result, data) {
+      callback(result, data);
+    });
+
+  }
+
+  //==================== GetChannels WebService Request Start ===================================
+
+
+
+
+
+
+  //============== HTTP Get Request Start ===============
+
+  makeHTTPGetRequest(url, callback) {
+
+    this.http.get(url)
       .map(res => res.json())
       .subscribe((data) => {
         callback("success", data);
@@ -87,9 +124,10 @@ export class DataHolderProvider {
       (err) => {
         callback("error", err);
       });
+
   }
 
-  //==================== ChannelsList WebService Request End ===================================
+  //============== HTTP Get Request End ===============
 
 
 
