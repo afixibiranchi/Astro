@@ -5,6 +5,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { TvGuidePage } from './../pages/tv-guide/tv-guide';
+import { TvChannelsPage } from './../pages/tv-channels/tv-channels';
+
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -19,6 +21,7 @@ import { FavouritesPage } from './../pages/favourites/favourites';
     MyApp,
     FavouritesPage,
     HomePage,
+    TvChannelsPage,
     TvGuidePage
   ],
   imports: [
@@ -41,6 +44,7 @@ import { FavouritesPage } from './../pages/favourites/favourites';
     MyApp,
     FavouritesPage,
     HomePage,
+    TvChannelsPage,
     TvGuidePage
   ],
   providers: [

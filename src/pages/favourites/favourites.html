@@ -16,7 +16,7 @@
 <ion-content>
 
 
-  <div class="center">
+  <div class="center" *ngIf="favouritesChannelsList.length">
     <ion-segment [(ngModel)]="sortChannel" (ionChange)="segmentChangeAction();">
       <ion-segment-button value="channelName">
         Channel Name
@@ -46,10 +46,12 @@
     </ion-list>
   </div>
 
-  <div *ngIf="favouritesChannelsList.length == 0">
-    <div style="text-align: center;margin-top:100px">
+  <div *ngIf="favouritesChannelsList.length == 0" padding>
+    <div style="text-align: center;margin-top:40px">
       No favourites channels added yet.
     </div>
+    <br/><br/>
+    <button type="button" ion-button round block color="primary" (click)="showChannelsListPage();">Show Channels List</button>
   </div>
 
 </ion-content>

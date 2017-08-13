@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title>Channels</ion-title>
+    <ion-buttons end (click)="showTVGuidePage();">
+      <button ion-button icon-only>
+              TV Guide
+        </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <div class="center">
+    <ion-segment [(ngModel)]="sortChannel" (ionChange)="segmentChangeAction();">
+      <ion-segment-button value="channelName">
+        Channel Name
+      </ion-segment-button>
+      <ion-segment-button value="channelNumber">
+        Channel Number
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div *ngIf="channelsArr.length">
+    <ion-list>
+      <ion-item *ngFor="let channelItem of channelsArr">
+        <h3>{{channelItem.channelTitle}}</h3>
+        <p item-right>CH{{channelItem.channelId}}</p>
+        <p>{{channelItem.channelDescription}}</p>
+        <p>{{channelItem.channelCategory}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="channelsArr.length == 0" class="center" style="text-align:center">
+    No channels found.
+  </div>
+
+</ion-content>
