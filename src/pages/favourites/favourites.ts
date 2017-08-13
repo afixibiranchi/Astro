@@ -10,6 +10,8 @@ import { NavController, NavParams, AlertController, LoadingController } from 'io
 export class FavouritesPage {
 
   loader: any;
+  sortChannel = 'channelName';
+
   favouritesLocalStorageKey = "MyFavouritesChannels";
   favouritesChannelsList = [];
 
@@ -29,9 +31,15 @@ export class FavouritesPage {
       if (data) {
         self.favouritesChannelsList = data;
       }
-      console.log("favouritesChannelsList in Favourites : ", JSON.stringify(self.favouritesChannelsList));
+      //console.log("favouritesChannelsList in Favourites : ", JSON.stringify(self.favouritesChannelsList));
     });
   }
+
+
+  ionViewDidEnter() {
+    this.segmentChangeAction();
+  }
+
 
 
   //==================== Get list of Fav Channels Start ===================================
@@ -61,7 +69,7 @@ export class FavouritesPage {
 
   removeChannelFromFavourites(channelItem) {
 
-    console.log("Channel item to be deleted : ", JSON.stringify(channelItem));
+    //console.log("Channel item to be deleted : ", JSON.stringify(channelItem));
 
     var indexOfItem = -1;
     for (var i = 0; i < this.favouritesChannelsList.length; i++) {
@@ -87,6 +95,38 @@ export class FavouritesPage {
 
   //==================== Remove Channel from Favourites End ===================================
 
+
+
+
+
+
+
+  //==================== Sort Favourite Channels Start ===================================
+
+  segmentChangeAction() {
+
+    if (this.sortChannel == "channelName") {
+
+      this.favouritesChannelsList.sort((a, b) => {
+        if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+        if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+        return 0;
+      });
+
+    } else {
+
+      this.favouritesChannelsList.sort((a, b) => {
+        if (a.channelId < b.channelId) return -1;
+        if (a.channelId > b.channelId) return 1;
+        return 0;
+      });
+
+    }
+
+  }
+
+
+  //==================== Sort Favourite Channels End ===================================
 
 
 

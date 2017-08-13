@@ -1,19 +1,28 @@
-<!-- <ion-header>
+<ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Channels List</ion-title>
   </ion-navbar>
-</ion-header> -->
+</ion-header>
 
-<ion-header>
+<!-- <ion-header>
   <ion-toolbar no-border-top>
 
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
 
+</ion-toolbar>
+</ion-header> -->
+
+
+
+
+<ion-content>
+
+  <div class="center">
     <ion-segment [(ngModel)]="sortChannel" (ionChange)="segmentChangeAction();">
       <ion-segment-button value="channelName">
         Channel Name
@@ -22,14 +31,7 @@
         Channel Number
       </ion-segment-button>
     </ion-segment>
-
-  </ion-toolbar>
-</ion-header>
-
-
-
-
-<ion-content>
+  </div>
 
   <div *ngIf="channelsList.length">
     <ion-list>
@@ -47,7 +49,7 @@
     </ion-list>
   </div>
 
-  <div *ngIf="channelsList.length == 0">
+  <div *ngIf="channelsList.length == 0" class="center" style="text-align:center">
     No channels list found.
   </div>
 

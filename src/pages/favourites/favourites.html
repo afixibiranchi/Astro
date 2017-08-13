@@ -18,6 +18,20 @@
 
 <ion-content>
 
+
+  <div class="center">
+    <ion-segment [(ngModel)]="sortChannel" (ionChange)="segmentChangeAction();">
+      <ion-segment-button value="channelName">
+        Channel Name
+      </ion-segment-button>
+      <ion-segment-button value="channelNumber">
+        Channel Number
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+
+
   <div *ngIf="favouritesChannelsList.length">
     <ion-list>
 

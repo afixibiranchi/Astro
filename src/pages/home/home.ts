@@ -26,6 +26,11 @@ export class HomePage {
 
 
   ionViewDidLoad() {
+    console.log("Inside viewDidLoad of Home page");
+  }
+
+
+  ionViewDidEnter() {
 
     var self = this;
     this.presentLoading();
@@ -34,11 +39,11 @@ export class HomePage {
 
     this.getListOfFavouritesChannels(function (result, data) {
 
-      console.log("favouritesChannelsList result in Home : ", result);
+      //console.log("favouritesChannelsList result in Home : ", result);
       if (data) {
         self.favouritesChannelsList = data;
       }
-      console.log("favouritesChannelsList in Home: ", JSON.stringify(self.favouritesChannelsList));
+      //console.log("favouritesChannelsList in Home: ", JSON.stringify(self.favouritesChannelsList));
     });
 
     //----------- Favourites Channels List End -------------
@@ -121,7 +126,7 @@ export class HomePage {
   //==================== Add to Favourites Start ===================================
 
   addToFavourites(channelItem) {
-    console.log("Add to favourites : ", JSON.stringify(channelItem));
+    //console.log("Add to favourites : ", JSON.stringify(channelItem));
 
     this.favouritesChannelsList.push(channelItem);
 
