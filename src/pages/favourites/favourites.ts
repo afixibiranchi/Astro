@@ -23,11 +23,11 @@ export class FavouritesPage {
     var self = this;
     this.getListOfFavouritesChannels(function (result, data) {
 
-      console.log("favouritesChannelsList result : ", result);
+      console.log("favouritesChannelsList result in Favourites : ", result);
       if (data) {
         self.favouritesChannelsList = data;
       }
-      console.log("favouritesChannelsList : ", JSON.stringify(self.favouritesChannelsList));
+      console.log("favouritesChannelsList in Favourites : ", JSON.stringify(self.favouritesChannelsList));
     });
   }
 

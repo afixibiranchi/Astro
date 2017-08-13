@@ -9,11 +9,12 @@ import { NavController, AlertController, LoadingController, Platform } from 'ion
 })
 export class HomePage {
 
-  // getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
-
   loader: any;
   channelsList = [];
   sortChannel = 'channelName';
+
+  favouritesLocalStorageKey = "MyFavouritesChannels";
+  favouritesChannelsList = [];
 
 
   constructor(public navCtrl: NavController,
@@ -28,6 +29,23 @@ export class HomePage {
 
     var self = this;
     this.presentLoading();
+
+    //----------- Favourites Channels List Start -------------
+
+    this.getListOfFavouritesChannels(function (result, data) {
+
+      console.log("favouritesChannelsList result in Home : ", result);
+      if (data) {
+        self.favouritesChannelsList = data;
+      }
+      console.log("favouritesChannelsList in Home: ", JSON.stringify(self.favouritesChannelsList));
+    });
+
+    //----------- Favourites Channels List End -------------
+
+
+
+    //----------- All Channels List Start -------------
 
     this.dataHolder.makeChannelListRequest(function (res, data) {
 
@@ -55,6 +73,9 @@ export class HomePage {
         self.showAlert("Error", data);
       }
     });
+
+    //----------- All Channels List End -------------
+
   }
 
 
@@ -82,6 +103,35 @@ export class HomePage {
     }
 
   }
+
+
+
+  //==================== Favourites Channels List Start ===================================
+
+  getListOfFavouritesChannels(callback) {
+    this.dataHolder.retrieveFromLocalStorage(this.favouritesLocalStorageKey, function (result, data) {
+      callback(result, data);
+    });
+  }
+
+  //==================== Favourites Channels List End ===================================
+
+
+
+  //==================== Add to Favourites Start ===================================
+
+  addToFavourites(channelItem) {
+    console.log("Add to favourites : ", JSON.stringify(channelItem));
+
+    this.favouritesChannelsList.push(channelItem);
+
+    this.dataHolder.saveToLocalStorage(this.favouritesLocalStorageKey, this.favouritesChannelsList, function (result, data) {
+      console.log("Favourite Channel saved to LocalStorage result :", result);
+    });
+  }
+
+  //==================== Add to Favourites End ===================================
+
 
 
 

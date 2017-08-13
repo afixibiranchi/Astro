@@ -34,9 +34,15 @@
   <div *ngIf="channelsList.length">
     <ion-list>
       <ion-item *ngFor="let channelItem of channelsList">
-        <p item-right>CH{{channelItem.channelId}}</p>
         <h3>{{channelItem.channelTitle}}</h3>
-        <!-- <p item-right>{{channelItem.channelStbNumber}}</p> -->
+        <p item-right>CH{{channelItem.channelId}}</p>
+
+        <ion-buttons item-right>
+          <button ion-button icon-only (click)="addToFavourites(channelItem);">
+            <ion-icon ios="ios-heart" md="md-heart"></ion-icon>
+          </button>
+        </ion-buttons>
+
       </ion-item>
     </ion-list>
   </div>
