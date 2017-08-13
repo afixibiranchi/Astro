@@ -1,12 +1,7 @@
+import { HomePage } from './../home/home';
+import { DataHolderProvider } from './../../providers/DataHolderProvider';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the FavouritesPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-favourites',
@@ -14,11 +9,38 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class FavouritesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  favouritesLocalStorageKey = "MyFavouritesChannels";
+  favouritesChannelsList = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public dataHolder: DataHolderProvider) {
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavouritesPage');
+
+    var self = this;
+    this.getListOfFavouritesChannels(function (result, data) {
+
+      console.log("favouritesChannelsList result : ", result);
+      if (data) {
+        self.favouritesChannelsList = data;
+      }
+      console.log("favouritesChannelsList : ", JSON.stringify(self.favouritesChannelsList));
+    });
+  }
+
+
+  getListOfFavouritesChannels(callback) {
+    this.dataHolder.retrieveFromLocalStorage(this.favouritesLocalStorageKey, function (result, data) {
+      callback(result, data);
+    });
+  }
+
+
+  showChannelsListPage() {
+    this.navCtrl.push(HomePage);
   }
 
 }

@@ -34,7 +34,7 @@ export class HomePage {
       self.loader.dismiss();
 
       console.log("Channel List res : ", res);
-      console.log("Channel List Response : ", JSON.stringify(data));
+      //console.log("Channel List Response : ", JSON.stringify(data));
 
       if (res == "success") {
 

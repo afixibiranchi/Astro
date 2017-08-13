@@ -28,7 +28,13 @@ import { FavouritesPage } from './../pages/favourites/favourites';
       name: '__AstroDB',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
     }),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsPlacement: 'bottom',
+      backButtonText: 'Back',
+      scrollAssist: false,
+      autoFocusAssist: false,
+      mode: 'ios'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
