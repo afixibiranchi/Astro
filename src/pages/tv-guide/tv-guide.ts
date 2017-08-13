@@ -10,6 +10,9 @@ import { DataHolderProvider } from './../../providers/DataHolderProvider';
 export class TvGuidePage {
 
   loader: any;
+  channelsArr = [];
+
+  sortChannel = 'channelNumber';
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
@@ -28,11 +31,52 @@ export class TvGuidePage {
 
     this.dataHolder.getChannels(function (result, data) {
       self.loader.dismiss();
-      console.log("Channels response : ", JSON.stringify(data));
+
+      if (result == "success") {
+        self.channelsArr = data["channel"];
+        self.channelsArr.sort((a, b) => {
+          if (a.channelId < b.channelId) return -1;
+          if (a.channelId > b.channelId) return 1;
+          return 0;
+        });
+      }
+      //console.log("Channels response : ", JSON.stringify(self.channelsArr));
+
+
     });
   }
 
 
+
+
+
+
+
+  //==================== Segment Change Action Start ===================================
+
+  segmentChangeAction() {
+
+    if (this.sortChannel == "channelName") {
+
+      this.channelsArr.sort((a, b) => {
+        if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+        if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+        return 0;
+      });
+
+    } else {
+
+      this.channelsArr.sort((a, b) => {
+        if (a.channelId < b.channelId) return -1;
+        if (a.channelId > b.channelId) return 1;
+        return 0;
+      });
+
+    }
+
+  }
+
+  //==================== Segment Change Action End ===================================
 
 
 

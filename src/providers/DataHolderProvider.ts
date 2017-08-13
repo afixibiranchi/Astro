@@ -12,7 +12,7 @@ export class DataHolderProvider {
   getChannelsURL = "http://ams-api.astro.com.my/ams/v3/getChannels";
 
   channelsList = [];
-
+  channelsArr = [];
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello DataHolderProvider Provider');
@@ -98,10 +98,18 @@ export class DataHolderProvider {
 
   getChannels(callback) {
 
-    var url = this.getChannelsURL;
-    this.makeHTTPGetRequest(url, function (result, data) {
-      callback(result, data);
-    });
+    if (this.channelsArr.length == 0) {
+      var self = this;
+      var url = this.getChannelsURL;
+      this.makeHTTPGetRequest(url, function (result, data) {
+        if (result == "success") {
+          self.channelsArr = data;
+        }
+        callback(result, data);
+      });
+    } else {
+      callback("success", this.channelsArr);
+    }
 
   }
 
