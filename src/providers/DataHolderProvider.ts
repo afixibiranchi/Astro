@@ -8,11 +8,15 @@ import 'rxjs/add/operator/map';
 export class DataHolderProvider {
 
   //http://whatson.astro.com.my/tv-guide
+
   getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
   getChannelsURL = "http://ams-api.astro.com.my/ams/v3/getChannels";
+  getEventsURL = "http://ams-api.astro.com.my/ams/v3/getEvents?";
+
 
   channelsList = [];
   channelsArr = [];
+  eventsArr = [];
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello DataHolderProvider Provider');
@@ -113,7 +117,42 @@ export class DataHolderProvider {
 
   }
 
-  //==================== GetChannels WebService Request Start ===================================
+  //==================== GetChannels WebService Request End ===================================
+
+
+
+
+
+
+
+  //==================== GetEvents WebService Request Start ===================================
+
+  getEvents(params, callback) {
+
+    if (this.eventsArr.length == 0) {
+      var self = this;
+      var url = this.getEventsURL;
+
+      if (params && params.length) {
+        url += params;
+      }
+
+      console.log("GetEvents URL : ", url);
+
+      this.makeHTTPGetRequest(url, function (result, data) {
+        if (result == "success") {
+          self.eventsArr = data;
+        }
+        callback(result, data);
+      });
+    } else {
+      callback("success", this.eventsArr);
+    }
+
+  }
+
+  //==================== GetEvents WebService Request End ===================================
+
 
 
 

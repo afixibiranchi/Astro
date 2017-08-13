@@ -24,6 +24,11 @@
   <div *ngIf="channelsList.length">
     <ion-list>
       <ion-item *ngFor="let channelItem of channelsList">
+
+        <div item-start *ngIf="channelItem.channelStbNumber">
+          <img src="https://astrocontent.s3.amazonaws.com/Images/ChannelLogo/Pos/{{channelItem.channelStbNumber}}_51.png">
+        </div>
+
         <h3>{{channelItem.channelTitle}}</h3>
         <p item-right>CH{{channelItem.channelId}}</p>
 

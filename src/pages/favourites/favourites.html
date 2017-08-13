@@ -33,6 +33,11 @@
     <ion-list>
 
       <ion-item *ngFor="let channelItem of favouritesChannelsList">
+
+        <div item-start>
+          <img src="https://astrocontent.s3.amazonaws.com/Images/ChannelLogo/Pos/{{channelItem.channelStbNumber}}_51.png">
+        </div>
+
         <h3>{{channelItem.channelTitle}}</h3>
         <p item-right>CH{{channelItem.channelId}}</p>
 

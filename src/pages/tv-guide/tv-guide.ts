@@ -27,11 +27,12 @@ export class TvGuidePage {
   ionViewDidEnter() {
 
     console.log("ChannelsArr length : ", this.channelsArr.length);
+
+    this.dataHolder.getEvents("", function (result, data) {
+      console.log("Events result : ", result);
+      console.log("Events response : ", JSON.stringify(data));
+    });
   }
-
-
-
-
 
 
 
