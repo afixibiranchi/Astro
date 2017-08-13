@@ -129,7 +129,7 @@ export class HomePage {
       console.log("Favourite Channel saved to LocalStorage result :", result);
     });
 
-    this.showAlert("Success", "Channel added to favourite list");
+    this.showAlert("", "Channel added to favourite list");
   }
 
   //==================== Add to Favourites End ===================================
@@ -155,7 +155,7 @@ export class HomePage {
 
   //======================= Show Alert Start ================================
 
-  showAlert(alertTitle = 'Error!', alertMessage = 'Missing Data') {
+  showAlert(alertTitle = '', alertMessage = 'Missing Data') {
     let alert = this.alerCtrl.create({
       title: alertTitle,
       message: alertMessage,

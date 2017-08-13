@@ -24,6 +24,11 @@
         <h3>{{channelItem.channelTitle}}</h3>
         <p item-right>CH{{channelItem.channelId}}</p>
       </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button color="danger" (click)="removeChannelFromFavourites(channelItem)">Delete</button>
+      </ion-item-options>
+
     </ion-list>
   </div>
 

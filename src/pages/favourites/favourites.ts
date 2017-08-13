@@ -34,16 +34,36 @@ export class FavouritesPage {
   }
 
 
+  //==================== Get list of Fav Channels Start ===================================
+
   getListOfFavouritesChannels(callback) {
     this.dataHolder.retrieveFromLocalStorage(this.favouritesLocalStorageKey, function (result, data) {
       callback(result, data);
     });
   }
 
+  //==================== Get list of Fav Channels End ===================================
+
+
+
+  //==================== Show Channels list page Start ===================================
 
   showChannelsListPage() {
     this.navCtrl.push(HomePage);
   }
+
+  //==================== Show Channels list page End ===================================
+
+
+
+
+  //==================== Remove Channel from Favourites Start ===================================
+
+  removeChannelFromFavourites(channelItem) {
+
+  }
+  //==================== Remove Channel from Favourites End ===================================
+
 
 
 
