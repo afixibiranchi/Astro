@@ -16,7 +16,6 @@ export class DataHolderProvider {
 
   channelsList = [];
   channelsArr = [];
-  eventsArr = [];
 
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello DataHolderProvider Provider');
@@ -129,25 +128,17 @@ export class DataHolderProvider {
 
   getEvents(params, callback) {
 
-    if (this.eventsArr.length == 0) {
-      var self = this;
-      var url = this.getEventsURL;
+    var url = this.getEventsURL;
 
-      if (params && params.length) {
-        url += params;
-      }
-
-      console.log("GetEvents URL : ", url);
-
-      this.makeHTTPGetRequest(url, function (result, data) {
-        if (result == "success") {
-          self.eventsArr = data;
-        }
-        callback(result, data);
-      });
-    } else {
-      callback("success", this.eventsArr);
+    if (params && params.length) {
+      url += params;
     }
+
+    // console.log("GetEvents URL : ", url);
+
+    this.makeHTTPGetRequest(url, function (result, data) {
+      callback(result, data);
+    });
 
   }
 

@@ -11,33 +11,137 @@ export class TvGuidePage {
 
   loader: any;
   channelsArr = [];
+  eventsArr = [];
+
+  todaysDate: any;
+  myDate: any;
+  minDate: any;
+  maxDate: any;
+
+  selectedChannel: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
     public alerCtrl: AlertController) {
 
     this.channelsArr = this.navParams.get("channelsArr");
+    if (this.channelsArr && this.channelsArr.length) {
+      this.channelsArr.sort((a, b) => {
+        if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+        if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+        return 0;
+      });
+    }
+
+    //console.log("channelsArr : ", JSON.stringify(this.channelsArr));
+
   }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TvGuidePage');
+
+
+    //--------------- Date Start -----------------------
+
+    var currentDate = new Date();
+    currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
+
+
+    this.todaysDate = currentDate.toISOString().toString().split("T")[0];
+    this.myDate = this.todaysDate;
+    this.minDate = currentDate.getFullYear();
+
+    var lastDay = new Date();
+    lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
+    this.maxDate = lastDay.toISOString().toString().split("T")[0];
+
+    console.log("todaysDate 11 : ", this.todaysDate);
+    console.log("minDate : ", this.minDate);
+    console.log("maxDate : ", this.maxDate);
+
+    //--------------- Date End -----------------------
+
+
+    //-------- Select Channel -------------
+    this.selectedChannel = "Select";
   }
 
 
   ionViewDidEnter() {
-
     console.log("ChannelsArr length : ", this.channelsArr.length);
-
-    var params = "channelId=[1,2,3]&periodStart=2017-08-14&periodEnd=2017-08-20";
-
-    this.dataHolder.getEvents(params, function (result, data) {
-      console.log("Events result : ", result);
-      console.log("Events response : ", JSON.stringify(data));
-    });
   }
 
 
 
+
+  //------------- Show Guide Start ---------------
+
+  showGuide() {
+    console.log("myDate : ", this.myDate);
+    console.log("selectedChannel : ", JSON.stringify(this.selectedChannel));
+
+    this.getEventsFromDataHolder();
+
+  }
+
+  //------------- Show Guide End ---------------
+
+
+
+
+  //------------- Get Events from DataHolder Start ---------------
+
+  getEventsFromDataHolder() {
+
+    var self = this;
+    this.presentLoading();
+
+    if (this.selectedChannel == "Select") {
+      this.selectedChannel = [];
+      var firstChannelId = this.channelsArr[0]["channelId"];
+      this.selectedChannel.push(firstChannelId);
+    }
+
+    var channelIds = this.selectedChannel.join(",")
+
+
+    //var params = "channelId=[3]&periodStart=2017-08-14 00:00&periodEnd=2017-08-14 23:59";
+    var params = "channelId=[" + channelIds + "]&periodStart=" + this.myDate + " 00:00&periodEnd=" + this.myDate + " 23:59";
+
+    console.log("params : ", params);
+
+
+
+    this.dataHolder.getEvents(params, function (result, data) {
+      self.loader.dismiss();
+
+      console.log("Events result : ", result);
+
+      if (result == "success") {
+        self.eventsArr = data["getevent"];
+        self.eventsArr.sort((a, b) => {
+          if (a.displayDateTime < b.displayDateTime) return -1;
+          if (a.displayDateTime > b.displayDateTime) return 1;
+          return 0;
+        });
+
+      }
+
+      //console.log("Events response : ", JSON.stringify(self.eventsArr));
+
+    });
+  }
+
+  //------------- Get Events from DataHolder End ---------------
+
+
+
+
+  refreshEvents() {
+    console.log("Refresh contents");
+  }
 
 
 

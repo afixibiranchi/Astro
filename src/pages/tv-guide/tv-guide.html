@@ -4,11 +4,68 @@
         <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>TV Guide</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="refreshEvents();">
+            <ion-icon name="refresh"></ion-icon>
+          </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content>
 
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>Select Date</ion-label>
+      <ion-datetime displayFormat="DD MMM YYYY" min="{{minDate}}" max="{{maxDate}}" placeholder="{{todaysDate}}" [(ngModel)]="myDate">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Select Channel</ion-label>
+
+      <!-- channelItem.channelId -->
+      <ion-select [(ngModel)]="selectedChannel" multiple="true">
+        <ion-option *ngFor="let channelItem of channelsArr" value="{{channelItem.channelId}}">
+          {{channelItem.channelTitle}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+
+
+  <div style="padding:0px 15px 0px 15px">
+    <button type="button" ion-button round block color="primary" (click)="showGuide();">Show Guide</button>
+  </div>
+
+  <br/><br/>
+
+  <div *ngIf="eventsArr.length">
+    <ion-list>
+      <ion-item *ngFor="let eventItem of eventsArr">
+
+        <!-- <div item-start>
+            <img src="https://astrocontent.s3.amazonaws.com/Images/ChannelLogo/Pos/{{channelItem.channelStbNumber}}_51.png">
+          </div> -->
+
+        <div item-end top>{{eventItem.displayDateTime}}</div>
+
+        <div>{{eventItem.channelTitle}}</div>
+
+        <h2>{{eventItem.programmeTitle}}</h2>
+        <p>{{eventItem.shortSynopsis}}</p>
+      </ion-item>
+    </ion-list>
+  </div>
+
+
+
+  <div *ngIf="eventsArr.length==0" class="center" style="text-align:center">
+    No events found.
+  </div>
 
 </ion-content>
