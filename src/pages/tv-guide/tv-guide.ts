@@ -141,6 +141,10 @@ export class TvGuidePage {
 
   refreshEvents() {
     console.log("Refresh contents");
+
+    //-------- Select Channel -------------
+    //this.selectedChannel = "Select";
+
   }
 
 
