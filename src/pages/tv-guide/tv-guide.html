@@ -48,11 +48,7 @@
     <ion-list>
       <ion-item *ngFor="let eventItem of eventsArr">
 
-        <!-- <div item-start>
-            <img src="https://astrocontent.s3.amazonaws.com/Images/ChannelLogo/Pos/{{channelItem.channelStbNumber}}_51.png">
-          </div> -->
-
-        <div item-end top>{{eventItem.displayDateTime | formatDate}}, {{eventItem.displayDateTime | formatTime}}</div>
+        <p item-end top>{{eventItem.displayDateTime | formatDate}}, {{eventItem.displayDateTime | formatTime}}</p>
 
         <div>{{eventItem.channelTitle}}</div>
 
