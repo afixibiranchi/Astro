@@ -10,9 +10,65 @@ export class DataHolderProvider {
   //http://whatson.astro.com.my/tv-guide
   getChannelListURL = "http://ams-api.astro.com.my/ams/v3/getChannelList";
 
+  channelsList = [];
+
+
   constructor(public http: Http, public storage: Storage) {
     console.log('Hello DataHolderProvider Provider');
   }
+
+
+
+  getAllChannelsListFromDataHolder(callback) {
+
+    if (this.channelsList.length == 0) {
+
+      //----------- All Channels List Start -------------
+
+      var self = this;
+
+      this.makeChannelListRequest(function (res, data) {
+
+        console.log("Channel List res : ", res);
+        //console.log("Channel List Response : ", JSON.stringify(data));
+
+        if (res == "success") {
+
+          if (data.responseCode == 200) {
+
+            self.channelsList = data.channels;
+            callback("success", self.channelsList);
+
+            // self.channelsList.sort((a, b) => {
+            //   if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+            //   if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+            //   return 0;
+            // });
+
+          } else {
+            //self.showAlert("Error", data.responseMessage);
+            callback("Error", data.responseMessage);
+          }
+
+        } else {
+          // self.showAlert("Error", data);
+          callback("Error", data);
+
+        }
+      });
+
+      //----------- All Channels List End -------------
+
+    } else {
+
+      callback("success", this.channelsList);
+    }
+
+  }
+
+
+
+
 
 
 
@@ -22,6 +78,7 @@ export class DataHolderProvider {
 
   makeChannelListRequest(callback) {
 
+    //console.log("making makeChannelListRequest to server....");
     this.http.get(this.getChannelListURL)
       .map(res => res.json())
       .subscribe((data) => {

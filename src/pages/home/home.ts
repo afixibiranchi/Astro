@@ -33,7 +33,6 @@ export class HomePage {
   ionViewDidEnter() {
 
     var self = this;
-    this.presentLoading();
 
     //----------- Favourites Channels List Start -------------
 
@@ -50,42 +49,49 @@ export class HomePage {
 
 
 
-    //----------- All Channels List Start -------------
+    this.presentLoading();
 
-    this.dataHolder.makeChannelListRequest(function (res, data) {
+    this.getListOfAllChannels(function (result, data) {
 
       self.loader.dismiss();
 
-      console.log("Channel List res : ", res);
-      //console.log("Channel List Response : ", JSON.stringify(data));
-
-      if (res == "success") {
-
-        if (data.responseCode == 200) {
-
-          self.channelsList = data.channels;
-          self.channelsList.sort((a, b) => {
-            if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
-            if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
-            return 0;
-          });
-
-        } else {
-          self.showAlert("Error", data.responseMessage);
-        }
+      if (result == "success") {
+        self.channelsList = data;
+        self.channelsList.sort((a, b) => {
+          if (a.channelTitle.toLowerCase() < b.channelTitle.toLowerCase()) return -1;
+          if (a.channelTitle.toLowerCase() > b.channelTitle.toLowerCase()) return 1;
+          return 0;
+        });
 
       } else {
         self.showAlert("Error", data);
       }
+
     });
 
-    //----------- All Channels List End -------------
 
   }
 
 
 
+  //==================== Get List of All Channels Start ===================================
 
+  getListOfAllChannels(callback) {
+
+    this.dataHolder.getAllChannelsListFromDataHolder(function (result, data) {
+      callback(result, data);
+    });
+
+  }
+
+  //==================== Get List of All Channels End ===================================
+
+
+
+
+
+
+  //==================== Segment Change Action Start ===================================
 
   segmentChangeAction() {
 
@@ -108,6 +114,9 @@ export class HomePage {
     }
 
   }
+
+  //==================== Segment Change Action End ===================================
+
 
 
 

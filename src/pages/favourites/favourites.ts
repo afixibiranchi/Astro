@@ -23,6 +23,10 @@ export class FavouritesPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FavouritesPage');
+  }
+
+
+  ionViewDidEnter() {
 
     var self = this;
     this.getListOfFavouritesChannels(function (result, data) {
@@ -30,14 +34,12 @@ export class FavouritesPage {
       console.log("favouritesChannelsList result in Favourites : ", result);
       if (data) {
         self.favouritesChannelsList = data;
+
+        self.segmentChangeAction();
+
       }
       //console.log("favouritesChannelsList in Favourites : ", JSON.stringify(self.favouritesChannelsList));
     });
-  }
-
-
-  ionViewDidEnter() {
-    this.segmentChangeAction();
   }
 
 
