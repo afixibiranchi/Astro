@@ -28,7 +28,9 @@ export class TvGuidePage {
 
     console.log("ChannelsArr length : ", this.channelsArr.length);
 
-    this.dataHolder.getEvents("", function (result, data) {
+    var params = "channelId=[1,2,3]&periodStart=2017-08-14&periodEnd=2017-08-20";
+
+    this.dataHolder.getEvents(params, function (result, data) {
       console.log("Events result : ", result);
       console.log("Events response : ", JSON.stringify(data));
     });
