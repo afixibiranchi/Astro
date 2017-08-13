@@ -16,13 +16,20 @@ import { HttpModule } from '@angular/http';
 import { DataHolderProvider } from '../providers/DataHolderProvider';
 import { FavouritesPage } from './../pages/favourites/favourites';
 
+//---------- Pipes -------------
+import { FormatDate } from '../pipes/format-date';
+import { FormatTime } from '../pipes/format-time';
+
+
 @NgModule({
   declarations: [
     MyApp,
     FavouritesPage,
     HomePage,
     TvChannelsPage,
-    TvGuidePage
+    TvGuidePage,
+    FormatDate,
+    FormatTime
   ],
   imports: [
     BrowserModule,

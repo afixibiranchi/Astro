@@ -52,7 +52,7 @@
             <img src="https://astrocontent.s3.amazonaws.com/Images/ChannelLogo/Pos/{{channelItem.channelStbNumber}}_51.png">
           </div> -->
 
-        <div item-end top>{{eventItem.displayDateTime}}</div>
+        <div item-end top>{{eventItem.displayDateTime | formatDate}}, {{eventItem.displayDateTime | formatTime}}</div>
 
         <div>{{eventItem.channelTitle}}</div>
 
