@@ -49,7 +49,7 @@ export class TvGuidePage {
     var currentDate = new Date();
     console.log("currentDate 11 : ", currentDate);
     if (this.platform.is('ios')) {
-      currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
+      //currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
     }
 
     var todaysDayStr = currentDate.getFullYear() + "-" + (((currentDate.getMonth() + 1) < 10) ? ("0" + (currentDate.getMonth() + 1)) : (currentDate.getMonth() + 1)) + "-" + ((currentDate.getDate() < 10) ? ("0" + currentDate.getDate()) : currentDate.getDate());
@@ -64,7 +64,7 @@ export class TvGuidePage {
 
     var lastDay = new Date();
     if (this.platform.is('ios')) {
-      lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
+      //lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
     }
     lastDay.setTime(lastDay.getTime() + (7 * 24 * 60 * 60 * 1000));
     var lastDayStr = lastDay.getFullYear() + "-" + (((lastDay.getMonth() + 1) < 10) ? ("0" + (lastDay.getMonth() + 1)) : (lastDay.getMonth() + 1)) + "-" + ((lastDay.getDate() < 10) ? ("0" + lastDay.getDate()) : lastDay.getDate());
@@ -188,9 +188,9 @@ export class TvGuidePage {
         var durationStrComponents = durationStr.split(":");
 
         var startTime = new Date(startTimeStr);
-        // if (this.platform.is('ios')) {
-        //   startTime.setTime(startTime.getTime() + startTime.getTimezoneOffset() * 60 * 1000);
-        // }
+        if (this.platform.is('ios')) {
+          startTime.setTime(startTime.getTime() + startTime.getTimezoneOffset() * 60 * 1000);
+        }
 
         var duration = new Date();
         duration.setHours(durationStrComponents[0]);
