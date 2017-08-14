@@ -19,6 +19,7 @@ export class TvGuidePage {
   maxDate: any;
 
   selectedChannel: any;
+  currentRunningProgramIndex = -1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
@@ -141,37 +142,7 @@ export class TvGuidePage {
         });
 
 
-        //---------- Current time start -----------
-
-        //var currentDate = new Date();
-        for (var i = 0; i < self.eventsArr.length; i++) {
-          var channelItem = self.eventsArr[i];
-          var startTimeStr = channelItem.displayDateTime;
-          var durationStr = channelItem.displayDuration;
-
-          console.log("=======================");
-
-
-          var durationStrComponents = durationStr.split(":");
-
-          var startTime = new Date(startTimeStr);
-          var duration = new Date();
-          duration.setHours(durationStrComponents[0]);
-          duration.setMinutes(durationStrComponents[1]);
-
-          console.log("StartTime : ", startTime);
-          console.log("Duration : ", duration);
-
-          var addMinutes = (60 * parseInt(durationStrComponents[0], 10)) + parseInt(durationStrComponents[1], 10);
-          //console.log("Add minutes : ", addMinutes);
-
-          var endTime = new Date(startTime);
-          endTime.setMinutes(endTime.getMinutes() + addMinutes);
-          console.log("endTime  : ", endTime);
-
-        }
-
-        //---------- Current time end -------------
+        self.calculateCurrentRunningProgram();
 
       }
 
@@ -181,6 +152,61 @@ export class TvGuidePage {
   }
 
   //------------- Get Events from DataHolder End ---------------
+
+
+
+  calculateCurrentRunningProgram() {
+
+
+    setTimeout(() => {
+
+      //---------- Current time start -----------
+
+      var currentDateTime = new Date();
+
+      for (var i = 0; i < this.eventsArr.length; i++) {
+        var channelItem = this.eventsArr[i];
+        var startTimeStr = channelItem.displayDateTime;
+        var durationStr = channelItem.displayDuration;
+
+        // console.log("=======================");
+
+
+        var durationStrComponents = durationStr.split(":");
+
+        var startTime = new Date(startTimeStr);
+        var duration = new Date();
+        duration.setHours(durationStrComponents[0]);
+        duration.setMinutes(durationStrComponents[1]);
+
+        // console.log("StartTime : ", startTime);
+        // console.log("Duration : ", duration);
+
+        var addMinutes = (60 * parseInt(durationStrComponents[0], 10)) + parseInt(durationStrComponents[1], 10);
+        //console.log("Add minutes : ", addMinutes);
+
+        var endTime = new Date(startTime);
+        endTime.setMinutes(endTime.getMinutes() + addMinutes);
+        // console.log("endTime  : ", endTime);
+
+        if ((startTime.getTime() <= currentDateTime.getTime()) && (currentDateTime.getTime() <= endTime.getTime())) {
+
+          console.log("startTime : ", startTime);
+          console.log("currentDateTime : ", currentDateTime);
+          console.log("endTime : ", endTime);
+          console.log("Program duration : ", channelItem.displayDuration);
+          console.log("Current running channel : ", channelItem.programmeTitle);
+
+          this.currentRunningProgramIndex = i;
+        }
+
+      }
+
+      //---------- Current time end -------------
+    }, 10000);
+
+
+  }
 
 
 

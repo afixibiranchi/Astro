@@ -46,7 +46,9 @@
 
   <div *ngIf="eventsArr.length">
     <ion-list>
-      <ion-item *ngFor="let eventItem of eventsArr">
+      <ion-item *ngFor="let eventItem of eventsArr; let i = index">
+
+        <div *ngIf="currentRunningProgramIndex == i" style="color:green; font-weight:bold">Running</div>
 
         <p item-end top>{{eventItem.displayDateTime | formatDate}}, {{eventItem.displayDateTime | formatTime}}</p>
 
@@ -54,6 +56,8 @@
 
         <h2>{{eventItem.programmeTitle}}</h2>
         <p>{{eventItem.shortSynopsis}}</p>
+
+        <p>Duration: {{eventItem.displayDuration}}</p>
       </ion-item>
     </ion-list>
   </div>
