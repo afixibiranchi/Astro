@@ -32,9 +32,9 @@ export class FormatDate implements PipeTransform {
       "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     ];
 
-    var weekdayNames = [
-      "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
-    ];
+    //var weekdayNames = [
+    //"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"
+    //];
 
     //return weekdayNames[today.getDay()] + ', ' + today.getDate() + ' '
     //+ monthNames[today.getMonth()] + ' ' + today.getFullYear();
