@@ -17,8 +17,7 @@ export class FormatTime {
     //console.log("date 11 : ", date);
 
     if (!date) {
-      value = value.replace("-", "/");
-      value = value.replace(".0", "");
+      value = value.replace(" ", "T");
       date = new Date(value);
     }
 

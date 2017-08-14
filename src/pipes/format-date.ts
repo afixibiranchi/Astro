@@ -21,7 +21,7 @@ export class FormatDate implements PipeTransform {
 
     // console.log("args : ", args["showDay"]);
 
-    console.log("format date :", value);
+    //console.log("format date :", value);
 
     if (value === null || value === undefined || value === "") return "";
     var date = new Date(value);
@@ -29,8 +29,7 @@ export class FormatDate implements PipeTransform {
     console.log("date 11 : ", date);
 
     if (!date) {
-      value = value.replace("-", "/");
-      value = value.replace(".0", "");
+      value = value.replace(" ", "T");
       date = new Date(value);
     }
 
