@@ -46,18 +46,31 @@ export class TvGuidePage {
     //--------------- Date Start -----------------------
 
     var currentDate = new Date();
-    currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
+    console.log("currentDate 11 : ", currentDate);
+    //currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
 
 
-    this.todaysDate = currentDate.toISOString().toString().split("T")[0];
+    var todaysDayStr = currentDate.getFullYear() + "-" + (((currentDate.getMonth() + 1) < 10) ? ("0" + (currentDate.getMonth() + 1)) : (currentDate.getMonth() + 1)) + "-" + ((currentDate.getDate() < 10) ? ("0" + currentDate.getDate()) : currentDate.getDate());
+    console.log("todaysDayStr : ", todaysDayStr);
+
+
+    this.todaysDate = todaysDayStr;
+    //console.log("todaysDate 11 : ", this.todaysDate);
+
     this.myDate = this.todaysDate;
     this.minDate = currentDate.getFullYear();
 
     var lastDay = new Date();
-    lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
-    this.maxDate = lastDay.toISOString().toString().split("T")[0];
+    //lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
+    lastDay.setTime(lastDay.getTime() + (7 * 24 * 60 * 60 * 1000));
+    var lastDayStr = lastDay.getFullYear() + "-" + (((lastDay.getMonth() + 1) < 10) ? ("0" + (lastDay.getMonth() + 1)) : (lastDay.getMonth() + 1)) + "-" + ((lastDay.getDate() < 10) ? ("0" + lastDay.getDate()) : lastDay.getDate());
+    console.log("lastDayStr : ", lastDayStr);
 
-    console.log("todaysDate 11 : ", this.todaysDate);
+    this.maxDate = lastDayStr;
+
+
+
+    console.log("todaysDate : ", this.todaysDate);
     console.log("minDate : ", this.minDate);
     console.log("maxDate : ", this.maxDate);
 
@@ -126,6 +139,32 @@ export class TvGuidePage {
           if (a.displayDateTime > b.displayDateTime) return 1;
           return 0;
         });
+
+
+        //---------- Current time start -----------
+
+        //var currentDate = new Date();
+        for (var i = 0; i < self.eventsArr.length; i++) {
+          var channelItem = self.eventsArr[i];
+          var startTimeStr = channelItem.displayDateTime;
+          var durationStr = channelItem.displayDuration;
+
+          console.log("startTime str : ", startTimeStr);
+          console.log("duration str : ", durationStr);
+
+          var startTime = new Date(startTimeStr);
+          var duration = new Date(durationStr);
+
+          var endTimeInterval = startTime.getTime() + duration.getTime();
+
+          console.log("endTimeInterval : ", endTimeInterval);
+          var endTime = new Date(endTimeInterval);
+
+          console.log("endTime  : ", endTime);
+
+        }
+
+        //---------- Current time end -------------
 
       }
 
