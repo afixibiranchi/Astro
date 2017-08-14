@@ -21,19 +21,22 @@ export class FormatDate implements PipeTransform {
 
     // console.log("args : ", args["showDay"]);
 
-    //console.log("format date :", value);
+    console.log("format date :", value);
 
     if (value === null || value === undefined || value === "") return "";
     var date = new Date(value);
 
-    console.log("date 11 : ", date);
+    //console.log("date 11 : ", date);
 
-    if (!date) {
+    if (date.toString() == "Invalid Date") {
       value = value.replace(" ", "T");
+
+      //console.log("format date 22 :", value);
+
       date = new Date(value);
     }
 
-    console.log("date 22 : ", date);
+    //console.log("date 22 : ", date);
     return this.formatDate(date);
   }
 

@@ -16,7 +16,7 @@ export class FormatTime {
 
     //console.log("date 11 : ", date);
 
-    if (!date) {
+    if (date.toString() == "Invalid Date") {
       value = value.replace(" ", "T");
       date = new Date(value);
     }
