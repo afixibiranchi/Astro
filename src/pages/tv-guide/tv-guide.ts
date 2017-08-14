@@ -158,7 +158,7 @@ export class TvGuidePage {
   calculateCurrentRunningProgram() {
 
 
-    var timeOut = setTimeout(() => {
+    setTimeout(() => {
 
       this.currentRunningIndexList = [];
 
