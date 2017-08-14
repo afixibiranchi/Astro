@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Platform } from 'ionic-angular';
 import { DataHolderProvider } from './../../providers/DataHolderProvider';
 
 @Component({
@@ -23,7 +23,7 @@ export class TvGuidePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
-    public alerCtrl: AlertController) {
+    public alerCtrl: AlertController, public platform: Platform) {
 
     this.channelsArr = this.navParams.get("channelsArr");
     if (this.channelsArr && this.channelsArr.length) {
@@ -48,8 +48,9 @@ export class TvGuidePage {
 
     var currentDate = new Date();
     console.log("currentDate 11 : ", currentDate);
-    //currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
-
+    if (this.platform.is('ios')) {
+      currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
+    }
 
     var todaysDayStr = currentDate.getFullYear() + "-" + (((currentDate.getMonth() + 1) < 10) ? ("0" + (currentDate.getMonth() + 1)) : (currentDate.getMonth() + 1)) + "-" + ((currentDate.getDate() < 10) ? ("0" + currentDate.getDate()) : currentDate.getDate());
     console.log("todaysDayStr : ", todaysDayStr);
@@ -62,7 +63,9 @@ export class TvGuidePage {
     this.minDate = currentDate.getFullYear();
 
     var lastDay = new Date();
-    //lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
+    if (this.platform.is('ios')) {
+      lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
+    }
     lastDay.setTime(lastDay.getTime() + (7 * 24 * 60 * 60 * 1000));
     var lastDayStr = lastDay.getFullYear() + "-" + (((lastDay.getMonth() + 1) < 10) ? ("0" + (lastDay.getMonth() + 1)) : (lastDay.getMonth() + 1)) + "-" + ((lastDay.getDate() < 10) ? ("0" + lastDay.getDate()) : lastDay.getDate());
     console.log("lastDayStr : ", lastDayStr);
@@ -159,18 +162,25 @@ export class TvGuidePage {
 
 
 
-    setTimeout(() => {
+    var timeOut = setTimeout(() => {
 
       this.currentRunningIndexList = [];
 
       //---------- Current time start -----------
 
       var currentDateTime = new Date();
+      //currentDateTime.setTime(currentDateTime.getTime() + currentDateTime.getTimezoneOffset() * 60 * 1000);
 
       for (var i = 0; i < this.eventsArr.length; i++) {
         var channelItem = this.eventsArr[i];
         var startTimeStr = channelItem.displayDateTime;
         var durationStr = channelItem.displayDuration;
+
+        // if (this.platform.is('android')) {
+        //   startTimeStr = channelItem.displayDateTimeUtc
+        // }
+
+        startTimeStr = startTimeStr.replace(" ", "T");
 
         // console.log("=======================");
 
@@ -178,6 +188,10 @@ export class TvGuidePage {
         var durationStrComponents = durationStr.split(":");
 
         var startTime = new Date(startTimeStr);
+        // if (this.platform.is('ios')) {
+        //   startTime.setTime(startTime.getTime() + startTime.getTimezoneOffset() * 60 * 1000);
+        // }
+
         var duration = new Date();
         duration.setHours(durationStrComponents[0]);
         duration.setMinutes(durationStrComponents[1]);
@@ -189,18 +203,28 @@ export class TvGuidePage {
         //console.log("Add minutes : ", addMinutes);
 
         var endTime = new Date(startTime);
+        //endTime.setTime(endTime.getTime() + endTime.getTimezoneOffset() * 60 * 1000);
         endTime.setMinutes(endTime.getMinutes() + addMinutes);
         // console.log("endTime  : ", endTime);
 
+
+
+        console.log("startTime : ", startTime);
+        console.log("currentDateTime : ", currentDateTime);
+        console.log("endTime : ", endTime);
+        console.log("Program duration : ", channelItem.displayDuration);
+        console.log("Current running channel : ", channelItem.programmeTitle);
+
         if ((startTime.getTime() <= currentDateTime.getTime()) && (currentDateTime.getTime() <= endTime.getTime())) {
 
-          console.log("startTime : ", startTime);
-          console.log("currentDateTime : ", currentDateTime);
-          console.log("endTime : ", endTime);
-          console.log("Program duration : ", channelItem.displayDuration);
-          console.log("Current running channel : ", channelItem.programmeTitle);
+          // console.log("startTime : ", startTime);
+          // console.log("currentDateTime : ", currentDateTime);
+          // console.log("endTime : ", endTime);
+          // console.log("Program duration : ", channelItem.displayDuration);
+          // console.log("Current running channel : ", channelItem.programmeTitle);
 
           this.currentRunningIndexList.push(i);
+          clearTimeout(timeOut);
         }
 
       }

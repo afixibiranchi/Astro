@@ -19,6 +19,8 @@ export class FormatTime {
     if (date.toString() == "Invalid Date") {
       value = value.replace(" ", "T");
       date = new Date(value);
+      date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
     }
 
     //console.log("date 22 : ", date);
