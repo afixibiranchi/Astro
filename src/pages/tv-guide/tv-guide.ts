@@ -19,7 +19,7 @@ export class TvGuidePage {
   maxDate: any;
 
   selectedChannel: any;
-  currentRunningProgramIndex = -1;
+  currentRunningIndexList = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public dataHolder: DataHolderProvider, public loadingCtrl: LoadingController,
@@ -158,7 +158,10 @@ export class TvGuidePage {
   calculateCurrentRunningProgram() {
 
 
+
     setTimeout(() => {
+
+      this.currentRunningIndexList = [];
 
       //---------- Current time start -----------
 
@@ -197,13 +200,13 @@ export class TvGuidePage {
           console.log("Program duration : ", channelItem.displayDuration);
           console.log("Current running channel : ", channelItem.programmeTitle);
 
-          this.currentRunningProgramIndex = i;
+          this.currentRunningIndexList.push(i);
         }
 
       }
 
       //---------- Current time end -------------
-    }, 10000);
+    }, 1000);
 
 
   }

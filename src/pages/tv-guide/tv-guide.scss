@@ -3,4 +3,18 @@ page-tv-guide {
     .center {
         padding: 7%;
     }
+
+    .runningNow{
+        color:white; 
+        background-color:green;
+        font-weight:bold; 
+        padding:1px;
+        margin-bottom: 10px;
+    }
+
+    .programName{
+        font-size: 18px;
+        font-weight: bold;
+        color: #181865;
+    }
 }
