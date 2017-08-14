@@ -40,6 +40,7 @@ export class TvGuidePage {
 
 
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad TvGuidePage');
 
@@ -48,35 +49,27 @@ export class TvGuidePage {
 
     var currentDate = new Date();
     console.log("currentDate 11 : ", currentDate);
-    if (this.platform.is('ios')) {
-      //currentDate.setTime(currentDate.getTime() + currentDate.getTimezoneOffset() * 60 * 1000);
-    }
 
     var todaysDayStr = currentDate.getFullYear() + "-" + (((currentDate.getMonth() + 1) < 10) ? ("0" + (currentDate.getMonth() + 1)) : (currentDate.getMonth() + 1)) + "-" + ((currentDate.getDate() < 10) ? ("0" + currentDate.getDate()) : currentDate.getDate());
-    console.log("todaysDayStr : ", todaysDayStr);
+    // console.log("todaysDayStr : ", todaysDayStr);
 
 
     this.todaysDate = todaysDayStr;
-    //console.log("todaysDate 11 : ", this.todaysDate);
 
     this.myDate = this.todaysDate;
     this.minDate = currentDate.getFullYear();
 
     var lastDay = new Date();
-    if (this.platform.is('ios')) {
-      //lastDay.setTime(lastDay.getTime() + lastDay.getTimezoneOffset() * 60 * 1000 + (7 * 24 * 60 * 60 * 1000));
-    }
     lastDay.setTime(lastDay.getTime() + (7 * 24 * 60 * 60 * 1000));
     var lastDayStr = lastDay.getFullYear() + "-" + (((lastDay.getMonth() + 1) < 10) ? ("0" + (lastDay.getMonth() + 1)) : (lastDay.getMonth() + 1)) + "-" + ((lastDay.getDate() < 10) ? ("0" + lastDay.getDate()) : lastDay.getDate());
-    console.log("lastDayStr : ", lastDayStr);
+    //console.log("lastDayStr : ", lastDayStr);
 
     this.maxDate = lastDayStr;
 
 
-
-    console.log("todaysDate : ", this.todaysDate);
-    console.log("minDate : ", this.minDate);
-    console.log("maxDate : ", this.maxDate);
+    // console.log("todaysDate : ", this.todaysDate);
+    // console.log("minDate : ", this.minDate);
+    // console.log("maxDate : ", this.maxDate);
 
     //--------------- Date End -----------------------
 
@@ -158,8 +151,11 @@ export class TvGuidePage {
 
 
 
-  calculateCurrentRunningProgram() {
 
+
+  //------------- Current Running Program Start ---------------
+
+  calculateCurrentRunningProgram() {
 
 
     var timeOut = setTimeout(() => {
@@ -176,14 +172,7 @@ export class TvGuidePage {
         var startTimeStr = channelItem.displayDateTime;
         var durationStr = channelItem.displayDuration;
 
-        // if (this.platform.is('android')) {
-        //   startTimeStr = channelItem.displayDateTimeUtc
-        // }
-
         startTimeStr = startTimeStr.replace(" ", "T");
-
-        // console.log("=======================");
-
 
         var durationStrComponents = durationStr.split(":");
 
@@ -196,24 +185,11 @@ export class TvGuidePage {
         duration.setHours(durationStrComponents[0]);
         duration.setMinutes(durationStrComponents[1]);
 
-        // console.log("StartTime : ", startTime);
-        // console.log("Duration : ", duration);
-
         var addMinutes = (60 * parseInt(durationStrComponents[0], 10)) + parseInt(durationStrComponents[1], 10);
-        //console.log("Add minutes : ", addMinutes);
 
         var endTime = new Date(startTime);
-        //endTime.setTime(endTime.getTime() + endTime.getTimezoneOffset() * 60 * 1000);
         endTime.setMinutes(endTime.getMinutes() + addMinutes);
-        // console.log("endTime  : ", endTime);
 
-
-
-        console.log("startTime : ", startTime);
-        console.log("currentDateTime : ", currentDateTime);
-        console.log("endTime : ", endTime);
-        console.log("Program duration : ", channelItem.displayDuration);
-        console.log("Current running channel : ", channelItem.programmeTitle);
 
         if ((startTime.getTime() <= currentDateTime.getTime()) && (currentDateTime.getTime() <= endTime.getTime())) {
 
@@ -224,7 +200,7 @@ export class TvGuidePage {
           // console.log("Current running channel : ", channelItem.programmeTitle);
 
           this.currentRunningIndexList.push(i);
-          clearTimeout(timeOut);
+          //clearTimeout(timeOut);
         }
 
       }
@@ -234,6 +210,8 @@ export class TvGuidePage {
 
 
   }
+
+  //------------- Current Running Program End ---------------
 
 
 
