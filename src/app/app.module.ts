@@ -20,6 +20,14 @@ import { FavouritesPage } from './../pages/favourites/favourites';
 import { FormatDate } from '../pipes/format-date';
 import { FormatTime } from '../pipes/format-time';
 
+import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+
+const cloudSettings: CloudSettings = {
+  'core': {
+    'app_id': '9b3eef1a'
+  }
+};
+
 
 @NgModule({
   declarations: [
@@ -44,7 +52,8 @@ import { FormatTime } from '../pipes/format-time';
       scrollAssist: false,
       autoFocusAssist: false,
       mode: 'ios'
-    })
+    }),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
