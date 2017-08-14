@@ -149,17 +149,24 @@ export class TvGuidePage {
           var startTimeStr = channelItem.displayDateTime;
           var durationStr = channelItem.displayDuration;
 
-          console.log("startTime str : ", startTimeStr);
-          console.log("duration str : ", durationStr);
+          console.log("=======================");
+
+
+          var durationStrComponents = durationStr.split(":");
 
           var startTime = new Date(startTimeStr);
-          var duration = new Date(durationStr);
+          var duration = new Date();
+          duration.setHours(durationStrComponents[0]);
+          duration.setMinutes(durationStrComponents[1]);
 
-          var endTimeInterval = startTime.getTime() + duration.getTime();
+          console.log("StartTime : ", startTime);
+          console.log("Duration : ", duration);
 
-          console.log("endTimeInterval : ", endTimeInterval);
-          var endTime = new Date(endTimeInterval);
+          var addMinutes = (60 * parseInt(durationStrComponents[0], 10)) + parseInt(durationStrComponents[1], 10);
+          //console.log("Add minutes : ", addMinutes);
 
+          var endTime = new Date(startTime);
+          endTime.setMinutes(endTime.getMinutes() + addMinutes);
           console.log("endTime  : ", endTime);
 
         }
