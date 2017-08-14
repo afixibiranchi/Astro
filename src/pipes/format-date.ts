@@ -21,8 +21,20 @@ export class FormatDate implements PipeTransform {
 
     // console.log("args : ", args["showDay"]);
 
+    console.log("format date :", value);
+
     if (value === null || value === undefined || value === "") return "";
     var date = new Date(value);
+
+    console.log("date 11 : ", date);
+
+    if (!date) {
+      value = value.replace("-", "/");
+      value = value.replace(".0", "");
+      date = new Date(value);
+    }
+
+    console.log("date 22 : ", date);
     return this.formatDate(date);
   }
 
@@ -39,9 +51,10 @@ export class FormatDate implements PipeTransform {
     //return weekdayNames[today.getDay()] + ', ' + today.getDate() + ' '
     //+ monthNames[today.getMonth()] + ' ' + today.getFullYear();
 
-    return today.getDate() + ' ' + monthNames[today.getMonth()]
-      + ' ' + today.getFullYear();
+    var result = today.getDate() + ' ' + monthNames[today.getMonth()] + ' ' + today.getFullYear();
+    console.log("result : ", result);
 
+    return result;
   }
 
 }

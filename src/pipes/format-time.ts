@@ -7,8 +7,23 @@ import { Pipe } from '@angular/core';
 export class FormatTime {
 
   transform(value, args) {
+
+    //console.log("format time :", value);
+
     if (value === null || value === undefined || value === "") return "";
+
     var date = new Date(value);
+
+    //console.log("date 11 : ", date);
+
+    if (!date) {
+      value = value.replace("-", "/");
+      value = value.replace(".0", "");
+      date = new Date(value);
+    }
+
+    //console.log("date 22 : ", date);
+
     var am_pm = "AM";
     var h = date.getHours();
     if (h >= 12) {
